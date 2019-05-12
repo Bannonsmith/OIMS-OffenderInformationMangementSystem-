@@ -1,8 +1,13 @@
 const mongoose = require('mongoose');
 
 const paroleOfficerSchema = new mongoose.Schema({
-    officer: String,
-    password: String
+    officerFirstName: String,
+    officerLastName: String,
+    password: String,
+    region: String,
+    office: String,
+    profilePic: String
+    // badgeId: Number
 })
 
 
