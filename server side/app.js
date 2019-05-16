@@ -2,10 +2,15 @@
 
 
 const Officer = require("./schemas/paroleOfficer")
+const Offender = require("./schemas/Offender")
 const express = require("express")
 const app = express()
 const bodyParser = require("body-parser")
+const cors = require("cors")
 
+
+
+app.use(cors())
 app.use(bodyParser.json())
 
 const mongoose = require('mongoose');
@@ -15,6 +20,73 @@ mongoose.connect('mongodb://localhost:27017/parolesDB',
         console.log("Connected to the MongoDb database!")
     }
 });
+
+app.get('/paroleOfficers/:badgeId',(req,res) => {
+
+    const badgeId = req.params.badgeId
+
+    Officer.findById(badgeId, (error,officer) => {
+        if (error) {
+            res.status(500).json({message: "Unable to find officer!"})
+        } else {
+            res.json(officer)
+        }
+    })
+})
+
+app.post("/paroleOfficers/add-offender", (req,res) => {
+
+    let badgeId = req.body.badgeId
+    let firstName = req.body.firstName
+    let lastName = req.body.lastName
+    let birthDate = req.body.birthDate
+    let address = req.body.address
+    let vehicle = req.body.vehicle
+    let employment = req.body.employment
+    let employmentAddress = req.body.employmentAddress
+    let criminalHistory = req.body.criminalHistory
+    let victimFirstName = req.body.victimFirstName
+    let victimLastName = req.body.victimLastName
+    let victimsImage = req.body.victimsImage
+    let medical = req.body.medical
+    let lastDrugTest = req.body.lastDrugTest
+
+    const offender = new Offender({
+        badgeId: badgeId,
+        firstName: firstName,
+        lastName: lastName,
+        birthDate: birthDate,
+        address: address,
+        vehicle: vehicle,
+        employment: employment,
+        employmentAddress: employmentAddress,
+        criminalHistory: criminalHistory,
+        victimFirstName: victimFirstName,
+        victimLastName: victimLastName,
+        victimsImage: victimsImage,
+        medical: medical,
+        lastDrugTest: lastDrugTest
+
+    })
+
+    Officer.findOne({ _id: badgeId}, (error,officer) => {
+
+        if(error) {
+            res.send(500).json({message: "Offender does not exist"})
+        } else {
+            officer.offenders.push(offender)
+
+            officer.save().then(savedOfficer => {
+                if(savedOfficer) {
+                    res.json({message: "officer has been saved"})
+                } else {
+                    res.json({message: "officer has not been saved"})
+                }
+            })
+        }
+    })
+
+})
 
 
 app.get("/paroleOfficers", (req,res) => {
