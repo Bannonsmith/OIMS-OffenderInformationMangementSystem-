@@ -34,7 +34,20 @@ app.get('/paroleOfficers/:badgeId',(req,res) => {
     })
 })
 
-app.post("/paroleOfficers/add-offender", (req,res) => {
+app.get('/offenders/:offenderId',(req,res) => {
+
+    const offenderId = req.params.offenderId
+
+    Offender.findById(offenderId, (error,offender) => {
+        if (error) {
+            res.status(500).json({message: "Something went wrong with the search!"})
+        } else if (offender== null)  { 
+            res.json({})
+        }
+    })
+})
+
+app.post("/paroleOfficers/add-offender2", (req,res) => {
 
     let badgeId = req.body.badgeId
     let firstName = req.body.firstName
@@ -52,6 +65,7 @@ app.post("/paroleOfficers/add-offender", (req,res) => {
     let lastDrugTest = req.body.lastDrugTest
 
     const offender = new Offender({
+
         badgeId: badgeId,
         firstName: firstName,
         lastName: lastName,
@@ -66,27 +80,70 @@ app.post("/paroleOfficers/add-offender", (req,res) => {
         victimsImage: victimsImage,
         medical: medical,
         lastDrugTest: lastDrugTest
-
     })
 
-    Officer.findOne({ _id: badgeId}, (error,officer) => {
-
+    offender.save((error,newOffender) => {
         if(error) {
-            res.send(500).json({message: "Offender does not exist"})
+            res.status(500).jsson({message: "Offender has not been saved"})
         } else {
-            officer.offenders.push(offender)
-
-            officer.save().then(savedOfficer => {
-                if(savedOfficer) {
-                    res.json({message: "officer has been saved"})
-                } else {
-                    res.json({message: "officer has not been saved"})
-                }
-            })
+            res.json({message: "Offender has  been saved"})
         }
     })
-
 })
+
+// app.post("/paroleOfficers/add-offender", (req,res) => {
+
+//     let badgeId = req.body.badgeId
+//     let firstName = req.body.firstName
+//     let lastName = req.body.lastName
+//     let birthDate = req.body.birthDate
+//     let address = req.body.address
+//     let vehicle = req.body.vehicle
+//     let employment = req.body.employment
+//     let employmentAddress = req.body.employmentAddress
+//     let criminalHistory = req.body.criminalHistory
+//     let victimFirstName = req.body.victimFirstName
+//     let victimLastName = req.body.victimLastName
+//     let victimsImage = req.body.victimsImage
+//     let medical = req.body.medical
+//     let lastDrugTest = req.body.lastDrugTest
+
+//     const offender = new Offender({
+//         badgeId: badgeId,
+//         firstName: firstName,
+//         lastName: lastName,
+//         birthDate: birthDate,
+//         address: address,
+//         vehicle: vehicle,
+//         employment: employment,
+//         employmentAddress: employmentAddress,
+//         criminalHistory: criminalHistory,
+//         victimFirstName: victimFirstName,
+//         victimLastName: victimLastName,
+//         victimsImage: victimsImage,
+//         medical: medical,
+//         lastDrugTest: lastDrugTest
+
+//     })
+
+//     Officer.findOne({ _id: badgeId}, (error,officer) => {
+
+//         if(error) {
+//             res.send(500).json({message: "Offender does not exist"})
+//         } else {
+//             officer.offenders.push(offender)
+
+//             officer.save().then(savedOfficer => {
+//                 if(savedOfficer) {
+//                     res.json({message: "officer has been saved"})
+//                 } else {
+//                     res.json({message: "officer has not been saved"})
+//                 }
+//             })
+//         }
+//     })
+
+// })
 
 
 app.get("/paroleOfficers", (req,res) => {
@@ -96,11 +153,28 @@ app.get("/paroleOfficers", (req,res) => {
     })
 })
 
+app.get("/offenders", (req,res) => {
+
+    Offender.find({}, (error, listOfOffenders) => {
+        res.json(listOfOffenders)
+    })
+})
+
 app.delete("/paroleOfficers/:badgeId", (req,res) => {
 
     const badgeId = req.params.badgeId
 
     Officer.remove({_id: badgeId}, (err,result) => {
+        res.json(result)
+    })
+
+})
+
+app.delete("/offenders/:offenderId", (req,res) => {
+
+    const offenderId = req.params.offenderId
+
+    Offender.remove({_id: offenderId}, (err,result) => {
         res.json(result)
     })
 
@@ -132,6 +206,19 @@ app.put("/paroleOfficers", (req,res) => {
         res.json(result)
     })
 
+})
+
+app.get("/paroleOfficers/:badgeId", (req, res) => {
+
+    const badgeId = req.params.badgeId
+
+    Officer.findById(badgeId, (error,officer) => {
+
+        Offender.find({badgeId: officer.id}, (err,comments) => {
+            officer.offenders = offenders
+            res.json(offenders)
+        })
+    })
 })
 
 app.get('/paroleOfficers/:badgeId', (req,res) => {

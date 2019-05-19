@@ -9,7 +9,7 @@ const paroleOfficerSchema = new mongoose.Schema({
     region: String,
     office: String,
     profilePic: String,
-    // offenders: [Offender.schema]
+    offenders: [Offender.schema]
     // badgeId: Number
 })
 
