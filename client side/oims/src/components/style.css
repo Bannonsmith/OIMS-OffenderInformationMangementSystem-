@@ -1,0 +1,23 @@
+.App {
+    text-align: center;
+  }
+  
+  .header a {
+    text-decoration: none;
+    padding: 0 1rem;
+    color: black;
+
+  }
+
+  .background {
+    padding: 25px;
+    margin-left: 100px;
+    margin-right: 100px;
+    background-color: lightblue;
+  }
+
+  .name {
+      list-style: none;
+      padding-top: 20px;
+      padding-bottom: 20px;
+  }

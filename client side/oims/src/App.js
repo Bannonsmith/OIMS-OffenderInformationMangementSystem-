@@ -3,6 +3,8 @@ import './App.css';
 import axios from "axios"
 import * as Constants from './urls/constants';
 
+
+
 class App extends Component {
 
   constructor() {
@@ -14,7 +16,8 @@ class App extends Component {
       password: "",
       region: "",
       office: "",
-      image: ""
+      image: "",
+      officers:[]
 
     }
 
@@ -41,13 +44,19 @@ class App extends Component {
     }).then(response => {
       console.log(response.data)
     })
-
-
+    .then(() => this.props.history.push('/show-officer'))
+    
 
   }
+
+
+ 
   render() {
+
+
     return (
-      <div>
+      <div class="background">
+        <h1>Add Parole Officer</h1>
         <input type= "text" name="officerFN" onChange={this.handleTextChange} placeholder="First Name"></input>
         <input type= "text" name="officerLN" onChange={this.handleTextChange} placeholder = "Last Name"></input>
         <input type= "text" name="password" onChange={this.handleTextChange} placeholder="Password"></input>
