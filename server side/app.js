@@ -14,6 +14,7 @@ app.use(cors())
 app.use(bodyParser.json())
 
 const mongoose = require('mongoose');
+mongoose.set('useFindAndModify', false);
 mongoose.connect('mongodb://localhost:27017/parolesDB', 
 {useNewUrlParser: true}, (error) => {
     if(!error) {
@@ -37,12 +38,16 @@ app.get('/paroleOfficers/:badgeId',(req,res) => {
 app.get('/offenders/:offenderId',(req,res) => {
 
     const offenderId = req.params.offenderId
-
+    console.log(offenderId)
     Offender.findById(offenderId, (error,offender) => {
         if (error) {
+            console.log(error)
             res.status(500).json({message: "Something went wrong with the search!"})
-        } else if (offender== null)  { 
-            res.json({})
+        } else if (offender!= null)  { 
+            res.json(offender)
+        }
+        else {
+            res.json(null)
         }
     })
 })
@@ -84,7 +89,7 @@ app.post("/paroleOfficers/add-offender2", (req,res) => {
 
     offender.save((error,newOffender) => {
         if(error) {
-            res.status(500).jsson({message: "Offender has not been saved"})
+            res.status(500).json({message: "Offender has not been saved"})
         } else {
             res.json({message: "Offender has  been saved"})
         }
@@ -173,7 +178,6 @@ app.delete("/paroleOfficers/:badgeId", (req,res) => {
 app.delete("/offenders/:offenderId", (req,res) => {
 
     const offenderId = req.params.offenderId
-
     Offender.remove({_id: offenderId}, (err,result) => {
         res.json(result)
     })
@@ -183,15 +187,22 @@ app.delete("/offenders/:offenderId", (req,res) => {
 // update an officer
 app.put("/paroleOfficers", (req,res) => {
 
-    const badgeId = req.body.badgeId
-    const officerFN = req.body.officerFirstName
-    const officerLN = req.body.officerLastName
-    const password = req.body.password
-    const region = req.body.region
-    const office = req.body.office
-    const profilePic = req.body.profile
+    let badgeId = req.body.badgeId
+    let firstName = req.body.firstName
+    let lastName = req.body.lastName
+    let birthDate = req.body.birthDate
+    let address = req.body.address
+    let vehicle = req.body.vehicle
+    let employment = req.body.employment
+    let employmentAddress = req.body.employmentAddress
+    let criminalHistory = req.body.criminalHistory
+    let victimFirstName = req.body.victimFirstName
+    let victimLastName = req.body.victimLastName
+    let victimsImage = req.body.victimsImage
+    let medical = req.body.medical
+    let lastDrugTest = req.body.lastDrugTest
 
-    const updatedOfficer = {
+    const updatedOffender = {
         officerFirstName: officerFN,
         officerLastName: officerLN,
         password: password,
@@ -254,12 +265,38 @@ app.post("/paroleOfficers", (req,res) => {
         profilePic: profilePic
     })
     
-    officer.save((error) => {
+      officer.save((error) => {
        if(error) {
            res.json({message: "Unable to save officer"})
        } else {
             res.json({sucess: true, message: "Officer has been added successfully"})
        }
+    })
+
+})
+
+
+app.post("/updateOffender", (req,res) => {
+    console.log(req.body)
+    let offenderId = req.body.offenderId
+    let badgeId = req.body.badgeId
+    let address = req.body.address
+    let vehicle = req.body.vehicle
+    let employment = req.body.employment
+    let employmentAddress = req.body.employmentAddress
+
+    const updatedOffender = {
+        badgeId: badgeId,
+        address: address,
+        vehicle: vehicle,
+        employment: employment,
+        employmentAddress: employmentAddress
+    }
+
+    // find the officer and update information
+    Offender.findOneAndUpdate({_id: offenderId},updatedOffender, (error,result) => {
+        console.log("which one is up",result)
+        res.json(result)
     })
 
 })

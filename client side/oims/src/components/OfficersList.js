@@ -23,8 +23,8 @@ class OfficersList extends Component {
 
       populateParoleOfficers = () => {
         fetch("http://localhost:8080/paroleOfficers")
-        .then(response => response.json())
-        .then(json => {
+        .then((response) => response.json())
+        .then((json) => {
           this.setState({
             officers: json
           })
