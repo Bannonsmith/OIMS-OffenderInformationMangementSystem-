@@ -24,12 +24,23 @@ constructor() {
     }
     this.handleSearchFunction = (id) => {
 
-        const url = `http://localhost:8080/offenders/${id}`
-        axios.get(url).then((result) => {
-            this.setState({
-                offender: this.state.offender.concat(result.data)
+        if(id.length == 24) {
+
+            const url = `http://localhost:8080/offenders/${id}`
+            axios.get(url).then((result) => {
+                if(result.data){
+                    this.setState({
+                        offender: this.state.offender.concat(result.data)
+                    })
+                }
+                else {
+                    alert("search results empty")
+                }
+                
             })
-        })
+        } else {
+            alert("Offender Id length is not valid")
+        }
        
     }
 
@@ -38,9 +49,9 @@ constructor() {
 
         let offenders = this.state.offender
         console.log(offenders)
-        let OffendersList = offenders.map((offender) => {
+        let OffendersList = offenders.map((offender, index) => {
           return (
-              <div class="name">
+              <div className="name" key = {index}>
                 <h1>Your search results </h1>
                 <li>TDCJ-ID:{offender._id}</li>
                 <li>Officer Badge Number:{offender.badgeId}</li>
@@ -60,7 +71,7 @@ constructor() {
             )
         })
         return(
-            <div class="background">
+            <div className="background">
                 <h1>Search for an offender</h1>
                 <input type="text" placeholder="TDCJ-ID" name="offenderId" onChange={this.handleTextChange}></input>
                 {/* <input type="text" placeholder="First Name" name="FName" onChange={this.handleTextChange} > </input>
