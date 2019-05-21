@@ -24,6 +24,8 @@ export class Menu extends Component {
                 <li className="header"><NavLink to="/show-officer">Officer</NavLink></li>
                 <li className="header" ><NavLink to="/save-offender">Offender</NavLink></li>
                 <li className="header"><NavLink to="/search">Search</NavLink></li>
+                {/* <li className="header"><NavLink to="/add-drugTest/">addDrugTest</NavLink></li> */}
+
 
             </ul>
         )

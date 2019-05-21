@@ -3,6 +3,7 @@
 
 const Officer = require("./schemas/paroleOfficer")
 const Offender = require("./schemas/Offender")
+const drugTest = require("./schemas/drugTest")
 const express = require("express")
 const app = express()
 const bodyParser = require("body-parser")
@@ -20,7 +21,7 @@ mongoose.connect('mongodb://localhost:27017/parolesDB',
     if(!error) {
         console.log("Connected to the MongoDb database!")
     }
-});
+})
 
 app.get('/paroleOfficers/:badgeId',(req,res) => {
 
@@ -150,6 +151,16 @@ app.post("/paroleOfficers/add-offender2", (req,res) => {
 
 // })
 
+app.get("/drugtest/:offenderId", (req,res) => {
+
+    let offenderId = req.params.badgeId
+
+        drugTest.find({_id: offenderId}, (test) => {
+            res.json(test)
+
+        })
+    
+})
 
 app.get("/paroleOfficers", (req,res) => {
     
@@ -301,9 +312,65 @@ app.post("/updateOffender", (req,res) => {
 
 })
 
+app.post("/add-drugTest/:offenderId", (req,res) => {
+    
+    let offenderId = req.params.offenderId
+    let date= req.body.date
+    let alcohol = req.body.alcohol
+    let amphetamines = req.body.amphetamines
+    let benzodiapheine = req.body.benzodiapheine
+    let cocaine = req.body.cocaine
+    let k2 = req.body.k2
+    let lsd = req.body.lsd
+    let marijuana = req.body.marijuana
+    let note = req.body.note
+    
+    console.log(offenderId)
+
+    let test = new drugTest({
+
+            date: date,
+            alcohol: alcohol,
+            amphetamines: amphetamines,
+            benzodiapheine: benzodiapheine,
+            cocaine: cocaine,
+            k2: k2,
+            lsd: lsd,
+            marijuana: marijuana,
+            note: note
+    })
+
+    Offender.find({_id: offenderId}, (offender) => {
+        console.log(offenderId)
+        console.log("tough")
+        console.log(offender)
+      test.save((error) => {
+        console.log(offender)
+
+            if(error) {
+                res.json({message: "Unable to save drug test"})
+            } else {
+                
+                res.json({sucess: true, message: "drug test has been added successfully"})
+            }
+        })
+    })
+})
+
 
 
 
 app.listen(8080, () => {
     console.log("Server is running....")
 })
+
+
+// const badgeId = req.params.badgeId
+
+// Officer.findById(badgeId, (error,officer) => {
+
+//     Offender.find({badgeId: officer.id}, (err,comments) => {
+//         officer.offenders = offenders
+//         res.json(offenders)
+//     })
+// })

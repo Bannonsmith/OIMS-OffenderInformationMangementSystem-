@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import axios from "axios"
+import { NavLink } from "react-router-dom"
 
 
 
@@ -142,10 +143,10 @@ export class OffendersList extends Component {
 
     render() {
         let offenders = this.state.offenders
-        let OffendersList = offenders.map((offender) => {
+        let OffendersList = offenders.map((offender, index) => {
           if(this.state.updatingOffender && offender._id == this.state.updateId){
             return (
-              <div>
+              <div key="index">
                 <form onSubmit = {() => this.handleUpdateSubmit(offender._id)}>
                   <li>TDCJ-ID:{offender._id}</li>
                   <input type = "hidden" readOnly value = {offender._id} onChange = {this.handleTextChange}/>
@@ -188,6 +189,8 @@ export class OffendersList extends Component {
                 <li>{offender.lastDrugTest}</li>
                 <button onClick={() => this.handleOffenderDelete(`${offender._id}`)}>Terminate</button>
                 <button onClick={() => this.handleOffenderUpdate(`${offender._id}`)}>Update</button>
+                <button><NavLink to={`/add-drugTest/${offender._id}`}>DrugTest</NavLink></button>
+
                 <br></br>
               </div>
             )
