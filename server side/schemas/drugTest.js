@@ -4,14 +4,14 @@ const ObjectId = Schema.ObjectId
 
 const drugTestSchema =   mongoose.Schema({
     date: String,
-    alcohol: Boolean,
-    amphetamines: Boolean,
-    benzodiapheine: Boolean,
-    cocaine: Boolean,
-    k2: Boolean,
-    lsd: Boolean,
-    marijuana: Boolean,
-    Note: String,
+    alcohol: String,
+    amphetamines: String,
+    benzodiapheine: String,
+    cocaine: String,
+    k2: String,
+    lsd: String,
+    marijuana: String,
+    note: String,
     offenderId: ObjectId
 
 })

@@ -329,6 +329,7 @@ app.post("/add-drugTest/:offenderId", (req,res) => {
 
     let test = new drugTest({
 
+            offenderId: offenderId,
             date: date,
             alcohol: alcohol,
             amphetamines: amphetamines,
@@ -340,12 +341,18 @@ app.post("/add-drugTest/:offenderId", (req,res) => {
             note: note
     })
 
-    Offender.find({_id: offenderId}, (offender) => {
-        console.log(offenderId)
+    Offender.find({_id: offenderId}, (err, offender) => {
+        console.log(offenderId._id)
         console.log("tough")
         console.log(offender)
+        console.log("tough2")
+        console.log(offender._id)
+        console.log("puppies")
+        console.log(test)
+
+
       test.save((error) => {
-        console.log(offender)
+        // console.log(offender)
 
             if(error) {
                 res.json({message: "Unable to save drug test"})
