@@ -49,9 +49,9 @@ class OfficersList extends Component {
 
         let officers = this.state.officers
         console.log(officers)
-        let paroleOfficers = officers.map((officer) => {
+        let paroleOfficers = officers.map((officer, index) => {
           return (
-            <div class="name">
+            <div className="name" index="key">
               <li>BadgeId:{officer._id}</li>
               <li>{officer.officerFirstName}</li>
               <li>{officer.officerLastName}</li>
@@ -64,7 +64,7 @@ class OfficersList extends Component {
       )
     })
         return (
-            <div class="background">
+            <div className="background">
                 <h1>Parole Officers</h1>   
                 <ul>{paroleOfficers}</ul>
             </div>

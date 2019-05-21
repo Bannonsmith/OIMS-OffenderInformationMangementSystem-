@@ -3,6 +3,8 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 const ObjectId = Schema.ObjectId
+const drugTest = require("./drugTest")
+
 
 const offenderSchema =   mongoose.Schema({
     firstName: String,
@@ -18,7 +20,8 @@ const offenderSchema =   mongoose.Schema({
     victimsImage: String,
     medical: String,
     lastDrugTest: String,
-    badgeId: ObjectId
+    badgeId: ObjectId,
+    drugTest:[drugTest.schema]
 
     
     

@@ -11,6 +11,8 @@ import {OffendersList } from './components/OffendersList'
 import  OfficersList from './components/OfficersList'
 import { BaseLayout } from './components/BaseLayout';
 import { Search } from './components/Search';
+import { DrugTest } from './components/DrugTest';
+
 
 const store = createStore(reducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 ReactDOM.render( <Provider store={store}>
@@ -20,7 +22,8 @@ ReactDOM.render( <Provider store={store}>
                                 <Route path="/" exact component={App} />
                                 <Route path="/save-offender" component={OffendersList} />
                                 <Route path="/show-officer" component={OfficersList} />
-                                <Route path="/search" component={Search} />
+                                    <Route path="/search" component={Search} />
+                                    <Route path="/add-drugTest/:offenderId" component={DrugTest} />
 
                             </Switch>
                         </BaseLayout>
