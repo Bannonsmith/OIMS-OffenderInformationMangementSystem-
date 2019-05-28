@@ -4,7 +4,7 @@
 const Officer = require("./schemas/paroleOfficer")
 const Offender = require("./schemas/Offender")
 const drugTest = require("./schemas/drugTest")
-const contact = require("./schemas/drugTest")
+const contact = require("./schemas/contact")
 const express = require("express")
 const app = express()
 const bodyParser = require("body-parser")
@@ -25,7 +25,7 @@ mongoose.connect('mongodb://localhost:27017/parolesDB',
 })
 
 
-app.get("/contact/:offenderId", (req,res) => {
+app.get("/contacts/:offenderId", (req,res) => {
 
     let offenderId = req.params.offenderId
       
@@ -39,27 +39,27 @@ app.get("/contact/:offenderId", (req,res) => {
     
 })
 
-app.post("/contact/:offenderId", (req,res) => {
+app.post("/contacts/:offenderId", (req,res) => {
     
     const offenderId = req.params.offenderId
     let date = req.body.date
     let time = req.body.time
     let who = req.body.who
-    let whatkind = req.body.whatkind
+    let whatKind = req.body.whatKind
     let where = req.body.where
     let summary =  req.body.summary
     let mood = req.body.mood
     let employment = req.body.employment
     let residence = req.body.residence
     let fees = req.body.fees
-    let drugFree = req.drugFree
+    let drugFree = req.body.drugFree
 
-    const contact = new contact ({
+    const newContact = new contact ({
 
         date: date,
         time: time,
         who: who,
-        whatkind: whatkind,
+        whatKind: whatKind,
         where: where,
         summary: summary,
         mood: mood,
@@ -69,18 +69,17 @@ app.post("/contact/:offenderId", (req,res) => {
         drugFree: drugFree
     })
 
-    Offender.findOne({_id: offenderId}, (error, contact) => {
+    Offender.findOne({_id: offenderId}, (error, offender) => {
         // console.log("tough")
-        console.log(offender)
         // console.log("tough2")
         // console.log("puppies")
         // console.log(test)
         if(error) {
             res.send(500).json({message: "offender does not exist to add contact"})
         } else {
-            Offender.contact.push(contact)
+            offender.contact.push(newContact)
 
-            Offender.save()
+            offender.save()
         }
 
     })

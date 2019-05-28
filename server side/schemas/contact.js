@@ -1,12 +1,11 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
-const ObjectId = Schema.ObjectId
 
 const contactSchema =   mongoose.Schema({
     date: String,
     time: String,
     who: String,
-    whatkind: String,
+    whatKind: String,
     where: String,
     marijuana: String,
     summary: String,
