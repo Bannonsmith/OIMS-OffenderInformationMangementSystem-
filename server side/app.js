@@ -4,6 +4,7 @@
 const Officer = require("./schemas/paroleOfficer")
 const Offender = require("./schemas/Offender")
 const drugTest = require("./schemas/drugTest")
+const contact = require("./schemas/drugTest")
 const express = require("express")
 const app = express()
 const bodyParser = require("body-parser")
@@ -21,6 +22,86 @@ mongoose.connect('mongodb://localhost:27017/parolesDB',
     if(!error) {
         console.log("Connected to the MongoDb database!")
     }
+})
+
+
+app.get("/contact/:offenderId", (req,res) => {
+
+    let offenderId = req.params.offenderId
+      
+        Offender.findOne({_id: offenderId}).then((offender) => {
+        
+            console.log("found it")
+            console.log(offender.contact)
+            res.json(offender.contact)
+                // console.log(offender)
+        })
+    
+})
+
+app.post("/contact/:offenderId", (req,res) => {
+    
+    const offenderId = req.params.offenderId
+    let date = req.body.date
+    let time = req.body.time
+    let who = req.body.who
+    let whatkind = req.body.whatkind
+    let where = req.body.where
+    let summary =  req.body.summary
+    let mood = req.body.mood
+    let employment = req.body.employment
+    let residence = req.body.residence
+    let fees = req.body.fees
+    let drugFree = req.drugFree
+
+    const contact = new contact ({
+
+        date: date,
+        time: time,
+        who: who,
+        whatkind: whatkind,
+        where: where,
+        summary: summary,
+        mood: mood,
+        employment: employment,
+        residence: residence,
+        fees: fees,
+        drugFree: drugFree
+    })
+
+    Offender.findOne({_id: offenderId}, (error, contact) => {
+        // console.log("tough")
+        console.log(offender)
+        // console.log("tough2")
+        // console.log("puppies")
+        // console.log(test)
+        if(error) {
+            res.send(500).json({message: "offender does not exist to add contact"})
+        } else {
+            Offender.contact.push(contact)
+
+            Offender.save()
+        }
+
+    })
+    
+})
+
+
+
+app.get("/drugtest/:offenderId", (req,res) => {
+
+    let offenderId = req.params.offenderId
+        console.log("offenderId")
+        console.log(offenderId)
+        Offender.findOne({_id: offenderId}).then((offender) => {
+        
+            console.log("found it")
+            console.log(offender.drugTest)
+            res.json(offender)
+                // console.log(offender)
+        })
+    
 })
 
 app.get('/paroleOfficers/:badgeId',(req,res) => {
@@ -151,16 +232,7 @@ app.post("/paroleOfficers/add-offender2", (req,res) => {
 
 // })
 
-app.get("/drugtest/:offenderId", (req,res) => {
 
-    let offenderId = req.params.badgeId
-
-        drugTest.find({_id: offenderId}, (test) => {
-            res.json(test)
-
-        })
-    
-})
 
 app.get("/paroleOfficers", (req,res) => {
     
@@ -312,7 +384,7 @@ app.post("/updateOffender", (req,res) => {
 
 })
 
-app.post("/add-drugTest/:offenderId", (req,res) => {
+app.post("/offenders/drugtests/:offenderId", (req,res) => {
     
     let offenderId = req.params.offenderId
     let date= req.body.date
@@ -324,8 +396,8 @@ app.post("/add-drugTest/:offenderId", (req,res) => {
     let lsd = req.body.lsd
     let marijuana = req.body.marijuana
     let note = req.body.note
-    
-    console.log(offenderId)
+    // console.log("did you get it")
+    // console.log(offenderId)
 
     let test = new drugTest({
 
@@ -341,28 +413,24 @@ app.post("/add-drugTest/:offenderId", (req,res) => {
             note: note
     })
 
-    Offender.find({_id: offenderId}, (err, offender) => {
-        console.log(offenderId._id)
-        console.log("tough")
-        console.log(offender)
-        console.log("tough2")
-        console.log(offender._id)
-        console.log("puppies")
-        console.log(test)
+    Offender.findOne({_id: offenderId}, (error, offender) => {
+        // console.log("tough")
+        
+        // console.log("tough2")
+        // console.log("puppies")
+        // console.log(test)
+        if(error) {
+            res.send(500).json({message: "offender does not exist to add drug test"})
+        } else {
+            offender.drugTest.push(test)
+            console.log(offender)
+            offender.save()
+            // res.redirect(/show-drugtest/${offenderId})
+        }
 
-
-      test.save((error) => {
-        // console.log(offender)
-
-            if(error) {
-                res.json({message: "Unable to save drug test"})
-            } else {
-                
-                res.json({sucess: true, message: "drug test has been added successfully"})
-            }
-        })
     })
 })
+
 
 
 
