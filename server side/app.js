@@ -81,7 +81,7 @@ app.post("/contacts/:offenderId", (req,res) => {
 
             offender.save()
         }
-
+            res.redirect('/contacts/:offenderId')
     })
     
 })

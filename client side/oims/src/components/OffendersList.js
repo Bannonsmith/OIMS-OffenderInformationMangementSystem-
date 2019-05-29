@@ -190,6 +190,11 @@ export class OffendersList extends Component {
                 <button onClick={() => this.handleOffenderDelete(`${offender._id}`)}>Terminate</button>
                 <button onClick={() => this.handleOffenderUpdate(`${offender._id}`)}>Update</button>
                 <button><NavLink to={`/add-drugTest/${offender._id}`}>DrugTest</NavLink></button>
+                <button><NavLink to={`/show-drugtest/${offender._id}`}>Show DrugTestList</NavLink></button>
+                <button><NavLink to={`/add-contact/${offender._id}`}>Add Contact</NavLink></button>
+                <button><NavLink to={`/show-contact/${offender._id}`}>Show Contact</NavLink></button>
+
+
 
                 <br></br>
               </div>
