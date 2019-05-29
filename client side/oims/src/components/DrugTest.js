@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import axios from "axios"
+import {NavLink} from "react-router-dom"
+
 
 
 
@@ -11,6 +13,7 @@ export class DrugTest extends Component {
         this.state = {
             offenderId: this.props.match.params.offenderId,
             date: "",
+            time: "",
             alcohol: "",
             amphetamines: "",
             benzodiapheine: "",
@@ -34,25 +37,28 @@ export class DrugTest extends Component {
         }
 
         handleDrugTestSave = (offenderId) => {
+            if (window.confirm("You are about to submit the changes")) {
 
-            const url = `http://localhost:8080/add-drugTest/${offenderId}`
-            console.log(this.state.alcohol)
+                    const url = `http://localhost:8080/offenders/drugtests/${offenderId}`
+                    console.log(this.state.alcohol)
 
-            axios.post(url, {
-                offenderId: this.state.offenderId,
-                date: this.state.date,
-                alcohol: this.state.alcohol,
-                amphetamines: this.state.amphetamines,
-                benzodiapheine: this.state.benzodiapheine,
-                cocaine: this.state.cocaine,
-                k2: this.state.k2,
-                lsd: this.state.lsd,
-                marijuana: this.state.marijuana,
-                note: this.state.note
-            }).then(response => {
-              console.log(response.data)
-            }).then(alert("You have sucessfully addded a drug test"))        
-          
+                    axios.post(url, {
+                        offenderId: this.state.offenderId,
+                        date: this.state.date,
+                        time: this.state.time,
+                        alcohol: this.state.alcohol,
+                        amphetamines: this.state.amphetamines,
+                        benzodiapheine: this.state.benzodiapheine,
+                        cocaine: this.state.cocaine,
+                        k2: this.state.k2,
+                        lsd: this.state.lsd,
+                        marijuana: this.state.marijuana,
+                        note: this.state.note
+                    }).then(response => {
+                    console.log(response.data)
+                    }).then(alert("You have sucessfully addded a drug test"))        
+                } else {
+                }            
         }
     
 
@@ -60,6 +66,8 @@ export class DrugTest extends Component {
         return (
         <div>
             <input type="date" name="date" onChange={this.handleTextChange}></input>
+            <input type="time" name="time" onChange={this.handleTextChange}></input>
+
             <br></br>
             <h2>Positive</h2>
             <h1>Alcohol</h1> 
@@ -72,16 +80,16 @@ export class DrugTest extends Component {
             <h1>Amphetamines</h1> 
             <select name="amphetamines" onChange={this.handleTextChange}>     
                                         <option selected="selected"></option>                 
-                                        <option value="Admitted" onChange={this.handleTextChange}>Admitted</option>
-                                        <option value="Positive" onChange={this.handleTextChange}>Positive</option>
-                                        <option value="Negative" onChange={this.handleTextChange}>Negative</option>
+                                        <option value="Admitted" >Admitted</option>
+                                        <option value="Positive" >Positive</option>
+                                        <option value="Negative" >Negative</option>
             </select>
             <h1>Benzodiapheine</h1> 
             <select name="benzodiapheine" onChange={this.handleTextChange}>
                                         <option selected="selected"></option>                 
-                                        <option value="Admitted" onChange={this.handleTextChange}>Admitted</option>
-                                        <option value="Positive" onChange={this.handleTextChange}>Positive</option>
-                                        <option value="Negative" onChange={this.handleTextChange}>Negative</option>
+                                        <option value="Admitted" >Admitted</option>
+                                        <option value="Positive" >Positive</option>
+                                        <option value="Negative" >Negative</option>
             </select>
             <h1>Cocaine</h1> 
             <select name="cocaine" onChange={this.handleTextChange}> 
@@ -113,7 +121,7 @@ export class DrugTest extends Component {
             </select>
                 <h3>Notes</h3>
             <textarea type="input" name="note" placeholder="Notes" onChange={this.handleTextChange}></textarea>
-            <button type="button" onClick={() => this.handleDrugTestSave(this.state.offenderId)}>Submit</button>
+            <NavLink to={`/show-drugtest/${this.state.offenderId}`}><button type="button" onClick={() => this.handleDrugTestSave(this.state.offenderId)}>Submit</button></NavLink>
 
         </div>
         )
