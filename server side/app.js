@@ -5,6 +5,7 @@ const Officer = require("./schemas/paroleOfficer")
 const Offender = require("./schemas/Offender")
 const drugTest = require("./schemas/drugTest")
 const contact = require("./schemas/contact")
+const User = require("./schemas/User")
 const express = require("express")
 const app = express()
 const bodyParser = require("body-parser")
@@ -431,8 +432,31 @@ app.post("/offenders/drugtests/:offenderId", (req,res) => {
 })
 
 
+app
 
+app.post("/login", (req,res) => {
 
+        let username = req.body.username
+        let password = req.body.password
+        let type = req.body.type
+        console.log(username)
+
+        let newuser = new User({
+            username: username,
+            password: password,
+            typeOf: type,
+        
+        })
+
+        newuser.save((error) => {
+            if(error) {
+                res.json({message: "Unable to save officer"})
+            } else {
+                 res.json({sucess: true, message: "Officer has been added successfully"})
+            }
+         })
+        })
+})
 
 app.listen(8080, () => {
     console.log("Server is running....")
