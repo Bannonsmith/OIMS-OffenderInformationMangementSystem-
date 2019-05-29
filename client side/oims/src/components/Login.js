@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import axios from "axios"
+import { connect } from "react-redux"
 
 class Login extends Component {
 
@@ -21,7 +22,15 @@ class Login extends Component {
             password: this.state.password,
             type: this.state.type
         }).then(response => {
-            console.log(response)
+
+            let token = response.data.token
+
+            console.log(token)
+            console.log(response.data)
+
+            localStorage.setItem("jwt",token)
+
+            this.props.onAuthenticated(token)
         }).catch(error => console.log(error))
     }
 
@@ -50,4 +59,9 @@ class Login extends Component {
     }
 }
 
-export default Login
+const mapDispatchToProps = (dispatch) => {
+    return { 
+        onAuthenticated: (token) => dispatch({type: "ON_AUTHENTICATED", token: token})
+    }
+}
+export default connect(null, mapDispatchToProps)(Login)

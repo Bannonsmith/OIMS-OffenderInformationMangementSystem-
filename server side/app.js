@@ -5,11 +5,15 @@ const Officer = require("./schemas/paroleOfficer")
 const Offender = require("./schemas/Offender")
 const drugTest = require("./schemas/drugTest")
 const contact = require("./schemas/contact")
-const User = require("./schemas/User")
+const Users = require("./schemas/User")
 const express = require("express")
 const app = express()
 const bodyParser = require("body-parser")
 const cors = require("cors")
+const jwt = require("jsonwebtoken")
+const bcrypt = require('bcrypt')
+const saltRounds = 10
+
 
 
 
@@ -414,11 +418,7 @@ app.post("/offenders/drugtests/:offenderId", (req,res) => {
     })
 
     Offender.findOne({_id: offenderId}, (error, offender) => {
-        // console.log("tough")
-        
-        // console.log("tough2")
-        // console.log("puppies")
-        // console.log(test)
+   
         if(error) {
             res.send(500).json({message: "offender does not exist to add drug test"})
         } else {
@@ -439,36 +439,68 @@ app.post("/login", (req,res) => {
         let username = req.body.username
         let password = req.body.password
         let type = req.body.type
-        console.log(username)
 
-        let newuser = new User({
-            username: username,
-            password: password,
-            typeOf: type,
+    
+
+    Users.findOne(({username: username}, (error, u) => {
+           console.log('u', u)
+       
+        if (u === null) {
+          res.render("login", {message: "Invalid username or password!"})
+        }
+          else {
+            bcrypt.compare(password, u.password,(error,result) => {
+              if (result) {
+                jwt.sign({ username: username }, "secret",  function(err, token) {
+                    console.log(token);
         
+                    if(token) {
+                        res.json({token: token})
+                    } else {
+                        res.status(500).json({message: "Unable to generate token"})
+                    }
+                  })
+        
+    
+            } else {
+              res.send({message: "Invalid username or password!"})
+            }
+          })
+        }
+    }))
+})
+
+
+app.post("/registration", (req, res) => {
+
+    let username = req.body.username
+    let password = req.body.password
+    let email = req.body.email
+    let type = req.body.type
+
+    bcrypt.hash(req.body.password, saltRounds, function(err,hash) {
+
+
+        const newUser = new Users ({
+            username: username,
+            password: hash,
+            email: email,
+            type: type
         })
 
-        newuser.save((error) => {
-            if(error) {
-                res.json({message: "Unable to save officer"})
-            } else {
-                 res.json({sucess: true, message: "Officer has been added successfully"})
+        Users.findOne({username: req.body.username}).then(function (result) {
+            if (null != result) {
+            console.log("USERNAME ALREADY EXISTS:", result.username);
             }
-         })
+            else {
+            newUser.save().then(function(newUser){
+            })}
+            res.send({message:'/login'})
+
+        })
         })
 })
 
 app.listen(8080, () => {
     console.log("Server is running....")
 })
-
-
-// const badgeId = req.params.badgeId
-
-// Officer.findById(badgeId, (error,officer) => {
-
-//     Offender.find({badgeId: officer.id}, (err,comments) => {
-//         officer.offenders = offenders
-//         res.json(offenders)
-//     })
-// })
