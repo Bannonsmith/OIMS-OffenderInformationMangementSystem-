@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const contactSchema =   mongoose.Schema({
-    date: String,
+    date: Date,
     time: String,
     who: String,
     whatKind: String,

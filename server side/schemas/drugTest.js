@@ -3,7 +3,8 @@ const Schema = mongoose.Schema
 const ObjectId = Schema.ObjectId
 
 const drugTestSchema =   mongoose.Schema({
-    date: String,
+    date: Date,
+    time: String,
     alcohol: String,
     amphetamines: String,
     benzodiapheine: String,
