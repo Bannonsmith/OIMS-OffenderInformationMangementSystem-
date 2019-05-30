@@ -15,8 +15,8 @@ import { DrugTest } from './components/DrugTest';
 import { DrugTestList } from './components/DrugTestList';
 import { Contact } from './components/Contact';
 import { ShowContacts } from './components/ShowContacts';
-import { setAuthenticationHeader } from "./utils/authenticate"
-
+import { setAuthenticationHeader } from "./utils/authenticate";
+import requireAuth from "./components/requireauth"
 
 
 
@@ -29,13 +29,13 @@ ReactDOM.render( <Provider store={store}>
                         <BaseLayout>
                             <Switch>
                                 <Route path="/" exact component={App} />
-                                <Route path="/save-offender" component={OffendersList} />
-                                <Route path="/show-officer" component={OfficersList} />
-                                <Route path="/search" component={Search} />
-                                <Route path="/add-drugTest/:offenderId" component={DrugTest} />
-                                <Route path="/show-drugtest/:offenderId" component={DrugTestList} />
-                                <Route path="/add-contact/:offenderId" component={Contact} />
-                                <Route path="/show-contact/:offenderId" component={ShowContacts} />
+                                <Route path="/save-offender" component={requireAuth(OffendersList)} />
+                                <Route path="/show-officer" component={requireAuth(OfficersList)} />
+                                <Route path="/search" component={requireAuth(Search)} />
+                                <Route path="/add-drugTest/:offenderId" component={requireAuth(DrugTest)} />
+                                <Route path="/show-drugtest/:offenderId" component={requireAuth(DrugTestList)} />
+                                <Route path="/add-contact/:offenderId" component={requireAuth(Contact)} />
+                                <Route path="/show-contact/:offenderId" component={requireAuth(ShowContacts)} />
 
                             </Switch>
                         </BaseLayout>
