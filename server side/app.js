@@ -49,7 +49,7 @@ function authenticate(req,res, next) {
 }
 
 
-app.get("/contacts/:offenderId",authenticate, (req,res) => {
+app.get("/contacts/:offenderId", (req,res) => {
 
     let offenderId = req.params.offenderId
       
@@ -112,7 +112,7 @@ app.post("/contacts/:offenderId", (req,res) => {
 
 
 
-app.get("/drugtest/:offenderId", authenticate, (req,res) => {
+app.get("/drugtest/:offenderId", (req,res) => {
 
     let offenderId = req.params.offenderId
         console.log("offenderId")
@@ -127,7 +127,7 @@ app.get("/drugtest/:offenderId", authenticate, (req,res) => {
     
 })
 
-app.get('/paroleOfficers/:badgeId', authenticate,(req,res) => {
+app.get('/paroleOfficers/:badgeId',(req,res) => {
 
     const badgeId = req.params.badgeId
 
@@ -140,7 +140,7 @@ app.get('/paroleOfficers/:badgeId', authenticate,(req,res) => {
     })
 })
 
-app.get('/offenders/:offenderId',  authenticate, (req,res) => {
+app.get('/offenders/:offenderId', (req,res) => {
 
     const offenderId = req.params.offenderId
     console.log(offenderId)
