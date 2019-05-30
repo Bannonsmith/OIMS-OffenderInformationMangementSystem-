@@ -15,13 +15,15 @@ import { DrugTest } from './components/DrugTest';
 import { DrugTestList } from './components/DrugTestList';
 import { Contact } from './components/Contact';
 import { ShowContacts } from './components/ShowContacts';
-
+import { setAuthenticationHeader } from "./utils/authenticate"
 
 
 
 
 
 const store = createStore(reducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+
+setAuthenticationHeader(localStorage.getItem("jwt"))
 ReactDOM.render( <Provider store={store}>
                     <BrowserRouter>
                         <BaseLayout>
