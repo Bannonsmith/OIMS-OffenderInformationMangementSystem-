@@ -29,8 +29,27 @@ mongoose.connect('mongodb://localhost:27017/parolesDB',
     }
 })
 
+function authenticate(req,res, next) {
 
-app.get("/contacts/:offenderId", (req,res) => {
+    let headers= req.headers["authorization"]
+    let token = headers.split(" ")[1]
+    jwt.verify(token, "secret", (err, decode) => {
+        if(decoded) {
+            if (decoded.username) {
+                next()
+            } else {
+                res.status(401).json({message: "Token invalid"})
+            }
+     } else {
+        res.status(401).json({message: "Token invalid"})
+        }
+        console.log(token)
+    }
+    ) 
+}
+
+
+app.get("/contacts/:offenderId",authenticate, (req,res) => {
 
     let offenderId = req.params.offenderId
       
@@ -93,7 +112,7 @@ app.post("/contacts/:offenderId", (req,res) => {
 
 
 
-app.get("/drugtest/:offenderId", (req,res) => {
+app.get("/drugtest/:offenderId", authenticate, (req,res) => {
 
     let offenderId = req.params.offenderId
         console.log("offenderId")
@@ -108,7 +127,7 @@ app.get("/drugtest/:offenderId", (req,res) => {
     
 })
 
-app.get('/paroleOfficers/:badgeId',(req,res) => {
+app.get('/paroleOfficers/:badgeId', authenticate,(req,res) => {
 
     const badgeId = req.params.badgeId
 
@@ -121,7 +140,7 @@ app.get('/paroleOfficers/:badgeId',(req,res) => {
     })
 })
 
-app.get('/offenders/:offenderId',(req,res) => {
+app.get('/offenders/:offenderId',  authenticate, (req,res) => {
 
     const offenderId = req.params.offenderId
     console.log(offenderId)
@@ -455,7 +474,8 @@ app.post("/login", (req,res) => {
                     console.log(token);
         
                     if(token) {
-                        res.json({token: token})
+                        res.json({token: token});
+                        res.redirect("/offenders");
                     } else {
                         res.status(500).json({message: "Unable to generate token"})
                     }

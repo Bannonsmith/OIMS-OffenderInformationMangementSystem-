@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import axios from "axios"
 import { connect } from "react-redux"
+import { setAuthenticationHeader } from "../utils/authenticate"
 
 class Login extends Component {
 
@@ -31,6 +32,7 @@ class Login extends Component {
             localStorage.setItem("jwt",token)
 
             this.props.onAuthenticated(token)
+            setAuthenticationHeader(token)
         }).catch(error => console.log(error))
     }
 
