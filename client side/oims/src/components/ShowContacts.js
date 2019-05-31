@@ -1,6 +1,10 @@
 import React, {Component} from "react";
 import axios from "axios"
 import GetUserInfo from "./GetUserInfo"
+import './style.css';
+import './generic.css';
+
+
 
 
 export class ShowContacts extends Component {
@@ -48,7 +52,8 @@ export class ShowContacts extends Component {
 
         const items = this.state.offender.map((m) =>{
           return( 
-              <div>
+              <div >
+                <br></br>
               <li>Date: {m.date}</li> 
               <li>time: {m.time}</li>
               <li>Person: {m.who}</li>
@@ -61,12 +66,13 @@ export class ShowContacts extends Component {
               <li>Substance Abuse Status: {m.drugFree}</li>
 
               <br></br>
+              <hr></hr>
               </div>
           )
         })
 
         return (
-          <div>
+          <div className="backgroundDrugTest">
             <GetUserInfo  />
             <ul>{items}</ul>
           </div>

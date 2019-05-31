@@ -2,6 +2,12 @@ import React, {Component} from "react";
 import axios from "axios"
 import { NavLink } from "react-router-dom"
 import { connect } from "react-redux"
+import './style.css';
+import {  Button, Media } from 'reactstrap';
+import './generic.css';
+
+
+
 
 
 
@@ -173,39 +179,57 @@ class OffendersList extends Component {
                   <li>{offender.victimLastName}</li>
                   <li><img src={offender.victimsImage}></img></li>
                   <li>{offender.lastDrugTest}</li>
-                  <button>Submit Changes</button>
+                  <Button>Submit Changes</Button>
                 </form>
-                <button type = "button" onClick = {this.cancelUpdate}>Cancel Update</button>
+                <Button type = "button" onClick = {this.cancelUpdate}>Cancel Update</Button>
               </div>
             )
           }
           else {
             return (
               <div className="name">
-                <li>TDCJ-ID:{offender._id}</li>
-                <li>Officer Badge Number:{offender.badgeId}</li>
-                <li>{offender.firstName}</li>
-                <li>{offender.lastName}</li>
-                <li>{offender.birthdate}</li>
-                <li><img src={offender.image} alt="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPlFXHifev2OtSYiYTGI_sm7vLJhCK0pYKcz1NNiePkEAgJ22NUQ"></img></li>
-                <li>{offender.address}</li>
-                <li>{offender.vehicle}</li>
-                <li>{offender.employment}</li>
-                <li>{offender.employmentAddress}</li>
-                <li>{offender.criminalHistory}</li>
-                <li>{offender.victimFirstName}</li>
-                <li>{offender.victimLastName}</li>
-                <li><img src={offender.victimsImage}></img></li>
-                <li>{offender.lastDrugTest}</li>
-                <button onClick={() => this.handleOffenderDelete(`${offender._id}`)}>Terminate</button>
-                <button onClick={() => this.handleOffenderUpdate(`${offender._id}`)}>Update</button>
-                <button onClick={() => this.props.getUserInfo(offender)}><NavLink to={`/add-drugTest/${offender._id}`}>DrugTest</NavLink></button>
-                <button onClick={() => this.props.getUserInfo(offender)}><NavLink to={`/show-drugtest/${offender._id}`}>Show DrugTestList</NavLink></button>
-                <button onClick={() => this.props.getUserInfo(offender)}><NavLink to={`/add-contact/${offender._id}`}>Add Contact</NavLink></button>
-                <button onClick={() => this.props.getUserInfo(offender)}><NavLink to={`/show-contact/${offender._id}`}>Show Contact</NavLink></button>
+                <Media>
+                <Media left href="#">
+                    <Media object src={offender.image} alt="Generic placeholder image" />
+                </Media>
+                <Media body>
+                    <Media heading>
+                    <div className="mediaHeader">
+                        <li>First Name: {offender.firstName} </li> <li>Last Name: {offender.lastName}</li>
+                    </div>
+                    </Media>
+                    <div className="mediaBody">
+                        <li>TDCJ-ID: {offender._id}</li>
+                        <li>Criminal History: {offender.criminalHistory}</li>
+                        <li>DOB: {offender.birthdate}</li>
+                        <li>Officer Badge Number: {offender.badgeId}</li>
+                        <li>Address: {offender.address}</li>
+                        <li>Vehicle: {offender.vehicle}</li>
+                        <li>Employment: {offender.employment}</li>
+                        <li>Employment Address: {offender.employmentAddress}</li>
+                        <li>DrugTest: {offender.lastDrugTest}</li>
+                        <br></br>
+                        <hr></hr>
+                        <div className="victimsInfo">
+                        <h5> Victims Info</h5>
+                          <li><img src={offender.victimsImage} alt="Generic placeholder image" ></img></li>
+                          <li>Victims First Name: {offender.victimFirstName}</li>
+                          <li>Victims Last Name: {offender.victimLastName}</li>
+                          <hr></hr>
+                          <br></br>
+                        </div>
+                    </div>
 
-
-
+                </Media>
+    </Media>
+                <div className="Buttons">
+                  <Button onClick={() => this.handleOffenderDelete(`${offender._id}`)}><NavLink>Terminate</NavLink></Button>
+                  <Button onClick={() => this.handleOffenderUpdate(`${offender._id}`)}><NavLink>Update</NavLink></Button>
+                  <Button onClick={() => this.props.getUserInfo(offender)}><NavLink to={`/add-drugTest/${offender._id}`}>DrugTest</NavLink></Button>
+                  <Button onClick={() => this.props.getUserInfo(offender)}><NavLink to={`/show-drugtest/${offender._id}`}>Show DrugTestList</NavLink></Button>
+                  <Button onClick={() => this.props.getUserInfo(offender)}><NavLink to={`/add-contact/${offender._id}`}>Add Contact</NavLink></Button>
+                  <Button onClick={() => this.props.getUserInfo(offender)}><NavLink to={`/show-contact/${offender._id}`}>Show Contact</NavLink></Button>
+                </div>
                 <br></br>
               </div>
             )
@@ -213,6 +237,8 @@ class OffendersList extends Component {
     })
         return(
             <div className="background">
+              <div className="offenderInput" >
+                
                 <h1>Add Offender</h1>
                 <input type= "text" name="badgeId" onChange={this.handleTextChange} placeholder= "Parole Officer Badge Number"></input>
                 <input type= "text" name="firstName" onChange={this.handleTextChange} placeholder="First Name"></input>
@@ -228,8 +254,12 @@ class OffendersList extends Component {
                 <input type= "text" name="victimLastName" onChange={this.handleTextChange} placeholder= "Victims Last Name"></input>
                 <input type= "text" name="victimsImage" onChange={this.handleTextChange} placeholder= "Victims Image"></input>
                 <input type= "text" name="lastDrugTest" onChange={this.handleTextChange} placeholder= "Last Drug Test"></input>
-                <button onClick={this.handleOffenderSave}>Submit</button>
-
+                <Button onClick={this.handleOffenderSave}>Submit</Button>
+              </div>
+              <br></br>
+                <h4>Offenders</h4>  
+                <hr></hr> 
+                <br></br>
                 <ul>{OffendersList}</ul>
             </div>
         )

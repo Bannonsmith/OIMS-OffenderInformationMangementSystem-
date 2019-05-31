@@ -2,6 +2,12 @@ import React, {Component} from "react";
 import axios from "axios"
 import {NavLink} from "react-router-dom"
 import GetUserInfo from "./GetUserInfo"
+import './style.css';
+import './generic.css';
+
+import {  Button, Media } from 'reactstrap';
+
+
 
 
 
@@ -65,65 +71,77 @@ export class DrugTest extends Component {
 
     render(){
         return (
-        <div>
+        <div className="backgroundDrugTest">
             <GetUserInfo />
+            <h2>Drug Test</h2>
+            <div className="dateandtime">
+            <div className="Date">
+            <h5>Date</h5>
             <input type="date" name="date" onChange={this.handleTextChange}></input>
+            </div>
+            <div>
+            <h5 className="Time">Time</h5>
             <input type="time" name="time" onChange={this.handleTextChange}></input>
-
-            <br></br>
-            <h2>Positive</h2>
-            <h1>Alcohol</h1> 
+            </div>
+            </div>
+            <br></br><br></br>
+            <div className="select">
+            <h5>Alcohol</h5> 
             <select name="alcohol" onChange={this.handleTextChange}>  
                                         <option selected="selected"></option>                 
                                         <option  value="Admitted">Admitted</option>
                                         <option  value="Positive">Positive</option>
                                         <option  value="Negative">Negative</option>
             </select>
-            <h1>Amphetamines</h1> 
+            <h5>Amphetamines</h5> 
             <select name="amphetamines" onChange={this.handleTextChange}>     
                                         <option selected="selected"></option>                 
                                         <option value="Admitted" >Admitted</option>
                                         <option value="Positive" >Positive</option>
                                         <option value="Negative" >Negative</option>
             </select>
-            <h1>Benzodiapheine</h1> 
+            <h5>Benzodiapheine</h5> 
             <select name="benzodiapheine" onChange={this.handleTextChange}>
                                         <option selected="selected"></option>                 
                                         <option value="Admitted" >Admitted</option>
                                         <option value="Positive" >Positive</option>
                                         <option value="Negative" >Negative</option>
             </select>
-            <h1>Cocaine</h1> 
+            <h5>Cocaine</h5> 
             <select name="cocaine" onChange={this.handleTextChange}> 
                                         <option selected="selected"></option>                
                                         <option value="Admitted" onChange={this.handleTextChange}>Admitted</option>
                                         <option value="Positive" onChange={this.handleTextChange}>Positive</option>
                                         <option value="Negative" onChange={this.handleTextChange}>Negative</option>
             </select>
-            <h1>K2</h1> 
+            <h5>K2</h5> 
             <select name="k2" onChange={this.handleTextChange}>                                                        
                                         <option selected="selected"></option>                 
                                         <option value="Admitted" onChange={this.handleTextChange}>Admitted</option>
                                         <option value="Positive" onChange={this.handleTextChange}>Positive</option>
                                         <option value="Negative" onChange={this.handleTextChange}>Negative</option>
             </select>            
-            <h1>LSD</h1> 
+            <h5>LSD</h5> 
             <select name="lsd" onChange={this.handleTextChange}>   
                                         <option selected="selected"></option>                 
                                         <option value="Admitted" onChange={this.handleTextChange}>Admitted</option>
                                         <option value="Positive" onChange={this.handleTextChange}>Positive</option>
                                         <option value="Negative" onChange={this.handleTextChange}>Negative</option>
             </select>            
-            <h1>Marijuana</h1> 
+            <h5>Marijuana</h5> 
             <select name="marijuana" onChange={this.handleTextChange}>                                         
                                         <option selected="selected"></option>                 
                                         <option value="Admitted" onChange={this.handleTextChange}>Admitted</option>
                                         <option value="Positive" onChange={this.handleTextChange}>Positive</option>
                                         <option value="Negative" onChange={this.handleTextChange}>Negative</option>
             </select>
+            </div>
+                <div className="note">
                 <h3>Notes</h3>
             <textarea type="input" name="note" placeholder="Notes" onChange={this.handleTextChange}></textarea>
-            <NavLink to={`/show-drugtest/${this.state.offenderId}`}><button type="button" onClick={() => this.handleDrugTestSave(this.state.offenderId)}>Submit</button></NavLink>
+            <br></br>
+            <NavLink to={`/show-drugtest/${this.state.offenderId}`}><Button type="button" onClick={() => this.handleDrugTestSave(this.state.offenderId)}>Submit</Button></NavLink>
+            </div>
 
         </div>
         )

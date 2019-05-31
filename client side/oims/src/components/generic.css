@@ -1,0 +1,124 @@
+.GetUserInfo {
+    background-color: rgb(23, 74, 240);
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 150px;
+    color: white;
+
+}
+.GetUserInfo img {
+    height: 150px;
+   
+}
+.GetUserInfo Media {
+    height: 150px;
+}
+
+
+ .mediaHeader {
+    display: flex;
+    font-size: 20px;
+} 
+
+.mediaHeader li {
+    padding-left: 1%;
+    padding-right: 1%;
+
+}
+
+.mediaBody {
+    margin-left: .5%;
+    margin-right: .5%;
+    text-align: left;
+  
+}
+.GetUserInfoOfficers {
+    background-color: rgb(151, 203, 235);
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 150px;
+    color: black;
+    position: relative;
+    margin-top: 7%;
+    margin-bottom: 7%;
+
+
+
+}
+.GetUserInfoOfficers img {
+    height: 150px;
+    width: 150px;
+   
+}
+.GetUserInfoOfficers Button {
+    position: absolute;
+    float: right;
+    
+}
+.offenderInput {
+    border-radius: 2px;
+    border-style: solid;
+    text-align: center;
+}
+.Buttons Button {
+
+    margin-left: 1%;
+    margin-right: 1%;
+
+}
+.Buttons Button NavLink {
+    color: white;
+    background-color: white;
+}
+.victimsInfo {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+.victimsInfo img {
+    height: 130px;
+
+}
+
+.dateandtime {
+    white-space: nowrap;
+    list-style: none;
+    text-align: center;
+
+
+}
+.time {
+    float: right;
+    display: inline-block;
+}
+
+.style {
+    background-color: transparent;
+    margin-left: 4.8%;
+    margin-right: 4.8%;
+}
+.note {
+    text-align: center;
+
+}
+.note textarea {
+    /* font-size: 25px; */
+    width: 40%;
+    height: 40%;
+}
+.select {
+    border-radius: 2px;
+    border-style: solid;
+    text-align: center;
+    margin-left: -0%;
+}
+/* .select select {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin: 10px;
+} */

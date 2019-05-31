@@ -9,11 +9,21 @@
 
   }
 
-  .background {
+  /* .background {
     padding: 25px;
     margin-left: 100px;
     margin-right: 100px;
     background-color: lightblue;
+  } */
+  .background {
+    background-color: rgb(196, 220, 233);
+    /* background-image: url("https://pixelz.cc/wp-content/uploads/2018/07/lady-justice-statue-uhd-4k-wallpaper.jpg"); */
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* padding: 25px; */
+    margin-left: 100px;
+    margin-right: 100px;
+    /* text-align: center  */
   }
 
   .name {
@@ -21,3 +31,90 @@
       padding-top: 20px;
       padding-bottom: 20px;
   }
+.background input{
+  margin: 4%;
+  border-radius: 2px;
+  border-style: solid;
+}
+.inputandbutton {
+  border-radius: 2px;
+  border-style: solid;
+  text-align: center;
+
+}
+.inputandbutton input {
+  margin: 3%;
+}
+
+.backgroundOfficers {
+  background-color: rgb(196, 220, 233);
+  /* background-image: url("https://pixelz.cc/wp-content/uploads/2018/07/lady-justice-statue-uhd-4k-wallpaper.jpg"); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 25px;
+  margin-left: 100px;
+  margin-right: 100px;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.backgroundOfficers Button {
+  /* float: right; */
+}
+.backgroundDrugTest {
+  background-color: rgb(196, 220, 233);
+  /* background-image: url("https://pixelz.cc/wp-content/uploads/2018/07/lady-justice-statue-uhd-4k-wallpaper.jpg"); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* padding: 25px; */
+  margin-left: 100px;
+  margin-right: 100px;
+  text-align: center;
+  
+} 
+
+.backgroundDrugTest h2 {
+  text-align: center;
+}
+.backgroundDrugTest li{
+  list-style: none;
+}
+.info {
+  display: flex;
+  justify-content: center;
+  padding: 1%;
+
+}
+.info select {
+  margin: 10px
+}
+.check {
+ display: flex; 
+  flex-wrap: wrap;
+  flex-direction: row; 
+  width: 3%;
+  text-align: center;
+  justify-items: center;
+  margin-left: 40%;
+  margin-top: 5%;
+ 
+}
+.summary {
+  width: 600px;
+  height: 200px;
+  margin-top: 40px;
+}
+.summary h5 {
+  margin-top: 40px;
+
+}
+.space {
+  margin: 10px;
+  margin-top: 19px;
+}
+.ml-auto{
+  margin: 0px;
+  height: 10px;
+
+}

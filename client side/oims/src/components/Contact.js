@@ -1,6 +1,14 @@
 import React, {Component} from "react";
 import axios from "axios"
 import GetUserInfo from "./GetUserInfo"
+import './generic.css';
+import './style.css';
+import {  Button } from 'reactstrap';
+import { NavLink } from "react-router-dom"
+
+
+
+
 
 
 
@@ -65,13 +73,16 @@ export class Contact extends Component {
 
     render(){
         return (
-            <div>
+            <div className="backgroundDrugTest">
 
                 <GetUserInfo />
-                <input type="date" name="date" onChange={this.handleTextChange}></input>
-                <input type="time" name="time" onChange={this.handleTextChange}></input>
+                <div className="info">
+                <h5>Date</h5><input type="date" name="date" onChange={this.handleTextChange}></input>
+                <h5>Time</h5><input type="time" name="time" onChange={this.handleTextChange}></input>
+                </div>
                 <br></br>
-                <h1>Contact with</h1> 
+                <div className="info">
+                <h5>Contact with</h5> 
                 <select name="who" onChange={this.handleTextChange}>  
                                             <option selected="selected"></option>                 
                                             <option  value="Offender">Offender</option>
@@ -79,14 +90,14 @@ export class Contact extends Component {
                                             <option  value="Other">Other</option>
                 </select>
             
-                <h1>whatKind</h1> 
+                <h5>whatKind</h5> 
                 <select name="whatKind" onChange={this.handleTextChange}>     
                                             <option selected="selected"></option>                 
                                             <option value="InPerson" >Face to Face</option>
                                             <option value="Electronic" >Electronic</option>
                                             <option value="Written" >Written</option>
                 </select>
-                <h1>where</h1> 
+                <h5>where</h5> 
                 <select name="where" onChange={this.handleTextChange}>
                                             <option selected="selected"></option>                 
                                             <option value="Office" >Office</option>
@@ -94,11 +105,12 @@ export class Contact extends Component {
                                             <option value="Employment" >Employment</option>
                                             <option value="Other" >Other</option>
             
-                </select><br></br>
-                <h1>Summary</h1> 
+                </select><br></br></div>
+                <h5>Summary</h5> 
 
-                <input type="textarea" name="summary" onChange={this.handleTextChange}></input>
-                <h1>Mood</h1> 
+                <input className="summary" type="textarea" name="summary" onChange={this.handleTextChange}></input>
+                <div className="check">
+                <h5>Mood</h5> 
                 <select name="mood" onChange={this.handleTextChange}>
                                             <option selected="selected"></option>                 
                                             <option value="Calm" >Calm</option>
@@ -109,7 +121,7 @@ export class Contact extends Component {
 
             
                 </select><br></br>
-                <h1>Employment</h1> 
+                <h5>Employment</h5> 
                 <select name="employment" onChange={this.handleTextChange}>
                                             <option selected="selected"></option>                 
                                             <option value="Employed" >Employed</option>
@@ -120,7 +132,7 @@ export class Contact extends Component {
 
                             
                 </select><br></br>
-                <h1>Residence</h1> 
+                <h5>Residence</h5> 
                 <select name="residence" onChange={this.handleTextChange}>
                                             <option selected="selected"></option>                 
                                             <option value="House" >House</option>
@@ -132,14 +144,14 @@ export class Contact extends Component {
 
                             
                 </select><br></br>
-                <h1>Fees</h1> 
+                <h5>Fees</h5> 
                 <select name="fees" onChange={this.handleTextChange}>
                                             <option selected="selected"></option>                 
                                             <option value="Paid" >Paid</option>
                                             <option value="Unpaid" >Unpaid</option>
 
                 </select><br></br>
-                <h1>Substance Abuse</h1> 
+                <h5>Substance Abuse</h5> 
                 <select name="drugFree" onChange={this.handleTextChange}>
                                             <option selected="selected"></option>                 
                                             <option value="Appears Drug Free" >Appears Drug Free</option>
@@ -148,10 +160,10 @@ export class Contact extends Component {
 
 
                 </select><br></br>
+                </div>
 
 
-
-                <button type="submit" onClick={() => this.handleContactSave(this.state.offenderId)}>Submit</button>
+                <NavLink to={`/show-contact/${this.state.offenderId}`}><Button type="submit" onClick={() => this.handleContactSave(this.state.offenderId)}>Submit</Button></NavLink>
             </div>
         )
     }
