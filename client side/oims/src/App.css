@@ -1,7 +1,45 @@
-/* .App {
+
+.dropdown {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  padding: 20px;
+  margin: 3%;
+  justify-content: center;
+  /* width: 20%; */
   text-align: center;
 }
+.dropdown input {
+  display: flex;
+  padding: 2%;
+  margin: 2%;
+  background: transparant;
+  border: none;
+  /* height: 3%; */
+}
+.center {
+  justify-content: center;
+  /* margin-left: 35%; */
+  border-style: solid;
+  border-color: white; 
+  /* padding-right: -100px;
+  margin-right: -100px; */
+  width: 30%;
+  justify-content: center;
 
-.header a {
-  text-decoration: none;
-} */
+}
+.center button {
+  justify-items: center;
+  vertical-align: middle;
+}
+.center h6 {
+  color: white;
+}
+.buttons {
+  justify-self: center
+}
+body {
+  background-image: url("https://pixelz.cc/wp-content/uploads/2018/07/lady-justice-statue-uhd-4k-wallpaper.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}

@@ -7,9 +7,9 @@ import { createStore } from "redux"
 import { Provider } from "react-redux"
 import reducer from "./store/reducer"
 import { BrowserRouter, Route, Switch} from "react-router-dom"
-import {OffendersList } from './components/OffendersList'
+import OffendersList  from './components/OffendersList'
 import  OfficersList from './components/OfficersList'
-import { BaseLayout } from './components/BaseLayout';
+import BaseLayout from './components/BaseLayout';
 import { Search } from './components/Search';
 import { DrugTest } from './components/DrugTest';
 import { DrugTestList } from './components/DrugTestList';
@@ -17,6 +17,10 @@ import { Contact } from './components/Contact';
 import { ShowContacts } from './components/ShowContacts';
 import { setAuthenticationHeader } from "./utils/authenticate";
 import requireAuth from "./components/requireauth"
+import { Registration } from './components/Registration';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 
 
 
@@ -36,7 +40,7 @@ ReactDOM.render( <Provider store={store}>
                                 <Route path="/show-drugtest/:offenderId" component={requireAuth(DrugTestList)} />
                                 <Route path="/add-contact/:offenderId" component={requireAuth(Contact)} />
                                 <Route path="/show-contact/:offenderId" component={requireAuth(ShowContacts)} />
-
+                                <Route path="/registration" component={Registration} />
                             </Switch>
                         </BaseLayout>
                      </BrowserRouter>

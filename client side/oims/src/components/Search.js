@@ -58,6 +58,7 @@ constructor() {
                 <li>{offender.firstName}</li>
                 <li>{offender.lastName}</li>
                 <li>{offender.birthdate}</li>
+                <li><img src={offender.image}></img></li>
                 <li>{offender.address}</li>
                 <li>{offender.vehicle}</li>
                 <li>{offender.employment}</li>

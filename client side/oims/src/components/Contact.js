@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import axios from "axios"
+import GetUserInfo from "./GetUserInfo"
+
 
 
 export class Contact extends Component {
@@ -65,7 +67,7 @@ export class Contact extends Component {
         return (
             <div>
 
-                <h1>Hello World</h1>
+                <GetUserInfo />
                 <input type="date" name="date" onChange={this.handleTextChange}></input>
                 <input type="time" name="time" onChange={this.handleTextChange}></input>
                 <br></br>

@@ -1,7 +1,11 @@
 import React, {Component} from "react";
 import axios from "axios"
+import '../App.css';
 import { connect } from "react-redux"
 import { setAuthenticationHeader } from "../utils/authenticate"
+import { NavLink } from "react-router-dom"
+import { Button } from 'reactstrap';
+
 
 class Login extends Component {
 
@@ -33,6 +37,7 @@ class Login extends Component {
 
             this.props.onAuthenticated(token)
             setAuthenticationHeader(token)
+            this.props.history.push("/show-officer")
         }).catch(error => console.log(error))
     }
 
@@ -46,16 +51,25 @@ class Login extends Component {
  
     render() {
         return (
-                <div>
-                    <select name="type" onChange={this.handleTextChange}>  
-                                        <option selected="selected"></option>                 
-                                        <option  value="Offender">Offender</option>
-                                        <option  value="Parole Officer">Officer</option>
-                                        <option  value="Admin">Admin</option>
-            </select>
-                    <input name = "username" onChange={this.handleTextBoxChange} placeholder="login"></input>
-                    <input type = "password" name= "password" onChange={this.handleTextBoxChange} placeholder="password"></input>
-                    <button onClick ={this.handleLogin}>Login</button>
+                <div className="center">
+                    <div className="dropdown" >
+                        <h1>OIMS</h1>
+                        <h6>Offender Information Mangement System</h6>
+                        <select name="type" onChange={this.handleTextChange}>  
+                                            <option selected="selected"></option>                 
+                                            <option  value="Offender">Offender</option>
+                                            <option  value="Parole Officer">Officer</option>
+                                            <option  value="Admin">Admin</option>
+                        </select>
+                        <h6>Username</h6>
+                        <input name = "username" onChange={this.handleTextBoxChange} placeholder="login"></input>
+                        <h6>Password</h6>
+                        <input type = "password" name= "password" onChange={this.handleTextBoxChange} placeholder="password"></input>
+                    </div>
+                    <div className="buttons">
+                        <Button onClick ={this.handleLogin} color="primary">Login</Button>{' '}
+                        <Button color="secondary"><NavLink to={"/registration"}>Registration</NavLink></Button>{' '}
+                    </div>
                 </div>
             )
     }

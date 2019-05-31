@@ -12,6 +12,7 @@ const offenderSchema =   mongoose.Schema({
     firstName: String,
     lastName: String,
     birthDate: String,
+    image: String,
     address: String,
     vehicle: String,
     employment: String,

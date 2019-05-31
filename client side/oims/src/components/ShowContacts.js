@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import axios from "axios"
+import GetUserInfo from "./GetUserInfo"
+
 
 export class ShowContacts extends Component {
     constructor(props) {
@@ -64,7 +66,10 @@ export class ShowContacts extends Component {
         })
 
         return (
-          <ul>{items}</ul>
+          <div>
+            <GetUserInfo  />
+            <ul>{items}</ul>
+          </div>
         )
 
       }
