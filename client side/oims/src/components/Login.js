@@ -4,8 +4,7 @@ import '../App.css';
 import { connect } from "react-redux"
 import { setAuthenticationHeader } from "../utils/authenticate"
 import { NavLink } from "react-router-dom"
-import { Button } from 'reactstrap';
-
+import {  Button } from 'reactstrap';
 
 class Login extends Component {
 
@@ -51,12 +50,16 @@ class Login extends Component {
  
     render() {
         return (
+            <div className="image">
                 <div className="center">
                     <div className="dropdown" >
                         <h1>OIMS</h1>
                         <h6>Offender Information Mangement System</h6>
+
+                                            <h6>Select Type</h6>
+
                         <select name="type" onChange={this.handleTextChange}>  
-                                            <option selected="selected"></option>                 
+                                            <option value="value"></option>                 
                                             <option  value="Offender">Offender</option>
                                             <option  value="Parole Officer">Officer</option>
                                             <option  value="Admin">Admin</option>
@@ -67,10 +70,13 @@ class Login extends Component {
                         <input type = "password" name= "password" onChange={this.handleTextBoxChange} placeholder="password"></input>
                     </div>
                     <div className="buttons">
-                        <Button onClick ={this.handleLogin} color="primary">Login</Button>{' '}
+                        <Button color ="secondary" onClick ={this.handleLogin} ><NavLink to={"/show-officer"}>Login</NavLink></Button>{' '}
                         <Button color="secondary"><NavLink to={"/registration"}>Registration</NavLink></Button>{' '}
                     </div>
                 </div>
+                </div>
+
+                
             )
     }
 }

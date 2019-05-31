@@ -1,5 +1,8 @@
 import React, {Component} from "react";
 import axios from "axios"
+import './style.css';
+import {  Button, Media } from 'reactstrap';
+import './generic.css';
 
 
 
@@ -52,23 +55,41 @@ constructor() {
         let OffendersList = offenders.map((offender, index) => {
           return (
               <div className="name" key = {index}>
-                <h1>Your search results </h1>
-                <li>TDCJ-ID:{offender._id}</li>
-                <li>Officer Badge Number:{offender.badgeId}</li>
-                <li>{offender.firstName}</li>
-                <li>{offender.lastName}</li>
-                <li>{offender.birthdate}</li>
-                <li><img src={offender.image}></img></li>
-                <li>{offender.address}</li>
-                <li>{offender.vehicle}</li>
-                <li>{offender.employment}</li>
-                <li>{offender.employmentAddress}</li>
-                <li>{offender.criminalHistory}</li>
-                <li>{offender.victimFirstName}</li>
-                <li>{offender.victimLastName}</li>
-                <li><img src={offender.victimsImage}></img></li>
-                <li>{offender.lastDrugTest}</li>
-                </div>
+                <Media>
+                <Media left href="#">
+                    <Media object src={offender.image} alt="Generic placeholder image" />
+                </Media>
+                <Media body>
+                    <Media heading>
+                    <div className="mediaHeader">
+                        <li>First Name: {offender.firstName} </li> <li>Last Name: {offender.lastName}</li>
+                    </div>
+                    </Media>
+                    <div className="mediaBody">
+                        <li>TDCJ-ID: {offender._id}</li>
+                        <li>Criminal History: {offender.criminalHistory}</li>
+                        <li>DOB: {offender.birthdate}</li>
+                        <li>Officer Badge Number: {offender.badgeId}</li>
+                        <li>Address: {offender.address}</li>
+                        <li>Vehicle: {offender.vehicle}</li>
+                        <li>Employment: {offender.employment}</li>
+                        <li>Employment Address: {offender.employmentAddress}</li>
+                        <li>DrugTest: {offender.lastDrugTest}</li>
+                        <br></br>
+                        <hr></hr>
+                        <div className="victimsInfo">
+                        <h5> Victims Info</h5>
+                          <li><img src={offender.victimsImage} alt="Generic placeholder image" ></img></li>
+                          <li>Victims First Name: {offender.victimFirstName}</li>
+                          <li>Victims Last Name: {offender.victimLastName}</li>
+                          <hr></hr>
+                          <br></br>
+                        </div>
+                    </div>
+
+                </Media>
+    </Media>
+    </div>
             )
         })
         return(

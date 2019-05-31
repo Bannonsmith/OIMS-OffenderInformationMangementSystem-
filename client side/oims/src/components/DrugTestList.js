@@ -1,6 +1,10 @@
 import React, {Component} from "react";
 import axios from "axios"
 import GetUserInfo from "./GetUserInfo"
+import './style.css';
+import './generic.css';
+
+
 
 
 export class DrugTestList extends Component {
@@ -57,12 +61,13 @@ export class DrugTestList extends Component {
               <li>Conclusion of marijuana test: {m.marijuana}</li>
               <li>Parole Officer's comments: {m.note}</li>
               <br></br>
+              <hr></hr>
               </div>
           )
         })
 
         return (
-          <div>
+          <div className="backgroundDrugTest">
             <GetUserInfo />
             <ul>{items}</ul>
           </div>

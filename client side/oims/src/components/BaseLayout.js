@@ -1,14 +1,39 @@
 import React, {Component} from "react";
 import {NavLink} from "react-router-dom"
-import './style.css'
 import { connect } from "react-redux"
 import { withRouter} from "react-router-dom"
+import './style.css';
+import './generic.css';
+import {
+    Collapse,
+    Navbar,
+    NavbarToggler,
+    NavbarBrand,
+    Nav,
+    NavItem,
+    UncontrolledDropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem } from 'reactstrap';
+  
 
 
 export class Menu extends Component {
+    constructor(props) {
+        super(props);
+    
+        this.toggle = this.toggle.bind(this);
+        this.state = {
+          isOpen: false
+        };
+      }
+      toggle() {
+        this.setState({
+          isOpen: !this.state.isOpen
+        });
+      }
 
-
-
+    
     handleLogoutClick = () => {
         
         localStorage.removeItem("jwt")
@@ -21,29 +46,64 @@ export class Menu extends Component {
     render() {
 
        let style = {
-            "backgroundColor": "lightGrey",
-            "listStyle": "none",
-            "display": "flex",
-            "padding": "25px",
-            "marginLeft" : "100px",
-            "marginRight" : "100px",
-            "height": "20px",
-            "textDecoration": "none"
+            "height": "10px",
+           
         }
        
         return(
-            <ul style={style}>
-                <li className="header"><NavLink to="/">Home</NavLink></li>
-                <li className="header"><NavLink to="/show-officer">Officer</NavLink></li>
-                <li className="header" ><NavLink to="/save-offender">Offender</NavLink></li>
-                <li className="header"><NavLink to="/search">Search</NavLink></li>
-                {/* <li className="header"><NavLink to="/add-drugTest/">addDrugTest</NavLink></li> */}
+            <div className="style">
+            <Navbar className="style" color="light" light expand="sm">
+         <NavbarBrand href="/"><NavLink>OIMS </NavLink></NavbarBrand>
+          <NavbarToggler onClick={this.toggle} />
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" color="muted" navbar>
+              <NavItem>
+                <NavLink className="space" to="/">Home</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink to="/show-officer" color="muted">Officer</NavLink>
+              </NavItem>
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                 <NavLink> More</NavLink>
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem>
+                  <NavLink to="/save-offender">
+                    Offender
+                  </NavLink></DropdownItem>
+                  <DropdownItem>
+                    <NavLink to="/search">
+                        Search
 
-                {this.props.isAuthenticated ? <li className="header" ><a onClick={this.handleLogoutClick} href="#">Logout</a></li> : null}
+                        
+                    </NavLink>
+                  </DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem>
+                   {this.props.isAuthenticated ? <li className="header" ><a onClick={this.handleLogoutClick} href="#"><NavLink>Logout</NavLink></a></li> : null}
+
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            </Nav>
+          </Collapse>
+        </Navbar>
+        </div>
+
+            // stop herer
+            // <ul style={style}>
+            //     <li className="header"><NavLink to="/">Home</NavLink></li>
+            //     <li className="header"><NavLink to="/show-officer">Officer</NavLink></li>
+            //     <li className="header" ><NavLink to="/save-offender">Offender</NavLink></li>
+            //     <li className="header"><NavLink to="/search">Search</NavLink></li>
+            //     <li className="header"><NavLink to="/add-drugTest/">addDrugTest</NavLink></li>
+
+                // {this.props.isAuthenticated ? <li className="header" ><a onClick={this.handleLogoutClick} href="#">Logout</a></li> : null}
  
 
 
-            </ul>
+            // </ul>
         )
     }
 }
