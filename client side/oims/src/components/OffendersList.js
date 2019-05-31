@@ -1,10 +1,13 @@
 import React, {Component} from "react";
 import axios from "axios"
 import { NavLink } from "react-router-dom"
+import { connect } from "react-redux"
 
 
 
-export class OffendersList extends Component {
+
+
+class OffendersList extends Component {
   constructor() {
        super()
 
@@ -14,6 +17,7 @@ export class OffendersList extends Component {
         firstName: "",
         lastName: "",
         birthDate: "",
+        image: "",
         address: "",
         vehicle: "",
         employment: "",
@@ -59,6 +63,7 @@ export class OffendersList extends Component {
         firstName: this.state.firstName,
         lastName: this.state.lastName,
         birthDate: this.state.birthDate,
+        image: this.state.image,
         address: this.state.address,
         vehicle: this.state.vehicle,
         employment: this.state.employment,
@@ -99,6 +104,7 @@ export class OffendersList extends Component {
       if(off._id == id){
         this.setState({
         badgeId: off.badgeId,
+        image: off.image,
         address: off.address,
         vehicle: off.vehicle,
         employment: off.employment,
@@ -123,6 +129,7 @@ export class OffendersList extends Component {
     let offenderId = id
     let badgeId = this.state.badgeId
     let address = this.state.address
+    let image = this.state.image
     let vehicle = this.state.vehicle
     let employment = this.state.employment
     let employmentAddress = this.state.employmentAddress
@@ -133,6 +140,7 @@ export class OffendersList extends Component {
       offenderId: offenderId,
       badgeId: badgeId,
       address: address,
+      image: image,
       vehicle: vehicle,
       employment: employment,
       employmentAddress: employmentAddress
@@ -155,6 +163,7 @@ export class OffendersList extends Component {
                   <li>{offender.firstName}</li>
                   <li>{offender.lastName}</li>
                   <li>{offender.birthdate}</li>
+                  <input type = "text" name = "image" defaultValue = {offender.image} onChange = {this.handleTextChange}/>
                   <input type = "text" name = "address" defaultValue = {offender.address} onChange = {this.handleTextChange}/>
                   <input type = "text" name = "vehicle" defaultValue = {offender.vehicle} onChange = {this.handleTextChange}/>
                   <input type = "text" name = "employment" defaultValue = {offender.employment} onChange = {this.handleTextChange}/>
@@ -178,6 +187,7 @@ export class OffendersList extends Component {
                 <li>{offender.firstName}</li>
                 <li>{offender.lastName}</li>
                 <li>{offender.birthdate}</li>
+                <li><img src={offender.image} alt="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPlFXHifev2OtSYiYTGI_sm7vLJhCK0pYKcz1NNiePkEAgJ22NUQ"></img></li>
                 <li>{offender.address}</li>
                 <li>{offender.vehicle}</li>
                 <li>{offender.employment}</li>
@@ -189,10 +199,10 @@ export class OffendersList extends Component {
                 <li>{offender.lastDrugTest}</li>
                 <button onClick={() => this.handleOffenderDelete(`${offender._id}`)}>Terminate</button>
                 <button onClick={() => this.handleOffenderUpdate(`${offender._id}`)}>Update</button>
-                <button><NavLink to={`/add-drugTest/${offender._id}`}>DrugTest</NavLink></button>
-                <button><NavLink to={`/show-drugtest/${offender._id}`}>Show DrugTestList</NavLink></button>
-                <button><NavLink to={`/add-contact/${offender._id}`}>Add Contact</NavLink></button>
-                <button><NavLink to={`/show-contact/${offender._id}`}>Show Contact</NavLink></button>
+                <button onClick={() => this.props.getUserInfo(offender)}><NavLink to={`/add-drugTest/${offender._id}`}>DrugTest</NavLink></button>
+                <button onClick={() => this.props.getUserInfo(offender)}><NavLink to={`/show-drugtest/${offender._id}`}>Show DrugTestList</NavLink></button>
+                <button onClick={() => this.props.getUserInfo(offender)}><NavLink to={`/add-contact/${offender._id}`}>Add Contact</NavLink></button>
+                <button onClick={() => this.props.getUserInfo(offender)}><NavLink to={`/show-contact/${offender._id}`}>Show Contact</NavLink></button>
 
 
 
@@ -208,6 +218,7 @@ export class OffendersList extends Component {
                 <input type= "text" name="firstName" onChange={this.handleTextChange} placeholder="First Name"></input>
                 <input type= "text" name="lastName" onChange={this.handleTextChange} placeholder = "Last Name"></input>
                 <input type= "text" name="birthDate" onChange={this.handleTextChange} placeholder="Birthdate"></input>
+                <input type= "text" name="image" onChange={this.handleTextChange} placeholder="Image"></input>
                 <input type= "text" name="address" onChange={this.handleTextChange} placeholder="Address"></input>
                 <input type= "text" name="vehicle" onChange={this.handleTextChange} placeholder="Vehicle"></input>
                 <input type= "text" name="employment" onChange={this.handleTextChange} placeholder= "Employment"></input>
@@ -224,6 +235,14 @@ export class OffendersList extends Component {
         )
     }
 
+
+
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+      getUserInfo: (offender) => dispatch({type: "GET_USER_INFO", value: offender})
+  }
+}
 
+export default connect(null,mapDispatchToProps)(OffendersList)

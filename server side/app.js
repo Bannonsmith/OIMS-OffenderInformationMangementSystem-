@@ -105,7 +105,6 @@ app.post("/contacts/:offenderId", (req,res) => {
 
             offender.save()
         }
-            res.redirect('/contacts/:offenderId')
     })
     
 })
@@ -163,6 +162,7 @@ app.post("/paroleOfficers/add-offender2", (req,res) => {
     let firstName = req.body.firstName
     let lastName = req.body.lastName
     let birthDate = req.body.birthDate
+    let image = req.body.image
     let address = req.body.address
     let vehicle = req.body.vehicle
     let employment = req.body.employment
@@ -180,6 +180,7 @@ app.post("/paroleOfficers/add-offender2", (req,res) => {
         firstName: firstName,
         lastName: lastName,
         birthDate: birthDate,
+        image: image,
         address: address,
         vehicle: vehicle,
         employment: employment,
@@ -297,6 +298,7 @@ app.put("/paroleOfficers", (req,res) => {
     let firstName = req.body.firstName
     let lastName = req.body.lastName
     let birthDate = req.body.birthDate
+    let image = req.body.image
     let address = req.body.address
     let vehicle = req.body.vehicle
     let employment = req.body.employment
@@ -386,6 +388,7 @@ app.post("/updateOffender", (req,res) => {
     console.log(req.body)
     let offenderId = req.body.offenderId
     let badgeId = req.body.badgeId
+    let image = req.body.image
     let address = req.body.address
     let vehicle = req.body.vehicle
     let employment = req.body.employment
@@ -393,6 +396,7 @@ app.post("/updateOffender", (req,res) => {
 
     const updatedOffender = {
         badgeId: badgeId,
+        image: image,
         address: address,
         vehicle: vehicle,
         employment: employment,
@@ -457,15 +461,20 @@ app.post("/login", (req,res) => {
 
         let username = req.body.username
         let password = req.body.password
+
+
+        console.log(username)
+        console.log(password)
         let type = req.body.type
 
     
+     
 
-    Users.findOne(({username: username}, (error, u) => {
+    Users.findOne({username: username}, (error, u) => {
            console.log('u', u)
        
         if (u === null) {
-          res.render("login", {message: "Invalid username or password!"})
+          res.send("login", {message: "Invalid username or password!"})
         }
           else {
             bcrypt.compare(password, u.password,(error,result) => {
@@ -475,9 +484,9 @@ app.post("/login", (req,res) => {
         
                     if(token) {
                         res.json({token: token});
-                        res.redirect("/offenders");
+                
                     } else {
-                        res.status(500).json({message: "Unable to generate token"})
+                        res.status(404).json({message: "Unable to generate token"})
                     }
                   })
         
@@ -487,7 +496,7 @@ app.post("/login", (req,res) => {
             }
           })
         }
-    }))
+    })
 })
 
 

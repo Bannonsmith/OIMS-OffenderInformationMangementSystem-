@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import axios from "axios"
 import {NavLink} from "react-router-dom"
+import GetUserInfo from "./GetUserInfo"
 
 
 
@@ -65,6 +66,7 @@ export class DrugTest extends Component {
     render(){
         return (
         <div>
+            <GetUserInfo />
             <input type="date" name="date" onChange={this.handleTextChange}></input>
             <input type="time" name="time" onChange={this.handleTextChange}></input>
 

@@ -1,9 +1,22 @@
 import React, {Component} from "react";
 import {NavLink} from "react-router-dom"
 import './style.css'
+import { connect } from "react-redux"
+import { withRouter} from "react-router-dom"
 
 
 export class Menu extends Component {
+
+
+
+    handleLogoutClick = () => {
+        
+        localStorage.removeItem("jwt")
+
+        this.props.logout()
+
+        this.props.history.push("/")
+    }
 
     render() {
 
@@ -26,6 +39,9 @@ export class Menu extends Component {
                 <li className="header"><NavLink to="/search">Search</NavLink></li>
                 {/* <li className="header"><NavLink to="/add-drugTest/">addDrugTest</NavLink></li> */}
 
+                {this.props.isAuthenticated ? <li className="header" ><a onClick={this.handleLogoutClick} href="#">Logout</a></li> : null}
+ 
+
 
             </ul>
         )
@@ -33,14 +49,30 @@ export class Menu extends Component {
 }
 
 
-export class BaseLayout extends Component {
+class BaseLayout extends Component {
     render() {
         return (
             <div>
-                <Menu />
+                <Menu logout={this.props.onLogout} 
+                history={this.props.history}
+                isAuthenticated = {this.props.isAuthenticated}/>
                 {this.props.children}
             </div>
         )
     }
 
 }
+
+const mapStateToProps = (state) => {
+    return {
+        isAuthenticated: state.isAuthenticated
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onLogout: () => dispatch({type: "LOGOUT"})
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(withRouter(BaseLayout))

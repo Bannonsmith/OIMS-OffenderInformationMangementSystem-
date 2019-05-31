@@ -1,7 +1,8 @@
 
 
 const initialState = {
-    isAuthenticated: false
+    isAuthenticated: false,
+    offender: null
 }
 const reducer = (state = initialState, action) => {
 
@@ -10,6 +11,17 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isAuthenticated: action.token != null ? true : false
+            }
+        case "LOGOUT":
+            return {
+                ...state,
+                isAuthenticated: false
+            }
+        case "GET_USER_INFO":
+            return {
+                ...state,
+                offender: action.value
+
             }
     }
     return state
