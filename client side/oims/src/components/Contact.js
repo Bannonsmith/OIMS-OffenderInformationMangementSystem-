@@ -124,11 +124,9 @@ export class Contact extends Component {
                 <h5>Employment</h5> 
                 <select name="employment" onChange={this.handleTextChange}>
                                             <option selected="selected"></option>                 
-                                            <option value="Employed" >Employed</option>
-                                            <option value="Angry" >Angry</option>
-                                            <option value="Sad" >Sad</option>
-                                            <option value="Upset" >Upset</option>
-                                            <option value="Other" >Other</option>
+                                            <option value="Employed" >EatShit</option>
+                                            <option value="Unemployed" >Unemployed</option>
+                                          
 
                             
                 </select><br></br>
