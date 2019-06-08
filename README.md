@@ -12,8 +12,10 @@ Video of login/registration and how the routes are proctected until you log in
 
 
 
+
 Video of admin adding a new parole officer to the database
 ![](parole.gif)
+
 
 
 
@@ -22,8 +24,10 @@ Video of admin adding a new offender to the database
 
 
 
+
 Video of admin adding a new drug test to the database
 ![](drugtest.gif) 
+
 
 
 
@@ -32,8 +36,10 @@ Video of admin adding a new contact log to the database
 
 
 
+
 Video of admin showing both the drug test list and contact list 
 ![](list.gif)
+
 
 
 
