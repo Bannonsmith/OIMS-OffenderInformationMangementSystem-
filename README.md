@@ -8,6 +8,8 @@ are released from prison.
 **Features:** React, Redux, ReactStrap, Node.JS, Express, MongoDB, Mongoose, CSS, json web tokens
 
 
+**Videos:** Videos of the application
+
 
 Video of login/registration and how the routes are proctected until you log in
 
